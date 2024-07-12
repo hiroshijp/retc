@@ -1,21 +1,28 @@
-# Retc
+# retc
 
-**TODO: Add description**
+## about
+reticulumの負荷テストをするためのWebSocketクライアント
 
-## Installation
+## how
+```
+docker compose up -d
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `retc` to your list of dependencies in `mix.exs`:
+#
+#コンテナへ入る
+#
 
-```elixir
-def deps do
-  [
-    {:retc, "~> 0.1.0"}
-  ]
-end
+cd /code/retc
+mix deps.get
+iex -S mix
+
+#
+#iexを起動
+#
+
+socket = Retc.socket()
+channel = Retc.join(socket, hub_sid)
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/retc>.
-
+## todo
+- クライアントプロセスを任意の数起動する
+- メッセージパッシングの間隔を指定できる

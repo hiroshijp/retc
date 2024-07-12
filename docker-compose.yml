@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 4000:4000
     volumes:
       - .:/code/retc
     working_dir: /retc

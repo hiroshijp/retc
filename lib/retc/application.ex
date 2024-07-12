@@ -11,8 +11,6 @@ defmodule Retc.Application do
     children = [
       # Starts a worker by calling: Retc.Worker.start_link(arg)
       # {Retc.Worker, arg}
-
-      {Plug.Cowboy, scheme: :http, plug: Retc.Router, options: [port: 4000]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -20,7 +18,6 @@ defmodule Retc.Application do
     opts = [strategy: :one_for_one, name: Retc.Supervisor]
 
     Logger.info("Starting Retc application")
-
     Supervisor.start_link(children, opts)
   end
 end
