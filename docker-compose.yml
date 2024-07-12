@@ -1,0 +1,14 @@
+version: '3'
+services:
+  retc:
+    image: retc-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/code/retc
+    working_dir: /retc
+    tty: true
+    
