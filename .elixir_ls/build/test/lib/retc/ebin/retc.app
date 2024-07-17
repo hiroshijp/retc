@@ -1,8 +1,10 @@
 {application,retc,
-             [{applications,[kernel,stdlib,elixir,logger,phoenix_client,
+             [{optional_applications,[]},
+              {applications,[kernel,stdlib,elixir,logger,phoenix_client,
                              jason]},
               {description,"retc"},
-              {modules,['Elixir.Retc','Elixir.Retc.Application']},
+              {modules,['Elixir.Retc','Elixir.Retc.Application',
+                        'Elixir.Retc.Worker']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.Retc.Application',[]}}]}.

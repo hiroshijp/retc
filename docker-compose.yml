@@ -1,12 +1,12 @@
 version: '3'
 services:
-  retc:
+  app:
     image: retc-image
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/code/retc
-    working_dir: /retc
+    working_dir: /code/retc
     tty: true
     
