@@ -1,12 +1,17 @@
 version: '3'
 services:
-  app:
-    image: retc-image
+  dev:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/code/retc
     working_dir: /code/retc
     tty: true
+  
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    command: /retc ${SOCKET_URL} ${HUB_SID} ${MESSAGE}
     

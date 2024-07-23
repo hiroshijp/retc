@@ -8,15 +8,21 @@ defmodule Retc.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Retc.Worker.start_link(arg)
-      {Retc.Worker, ["wss://host.docker.internal:4000/socket/websocket?vsn=2.0.0", "pfjYv78"]}
-    ]
+    # children = [
+    #   # Starts a worker by calling: Retc.Worker.start_link(arg)
+    #   {Retc.Worker, ["wss://host.docker.internal:4000/socket/websocket?vsn=2.0.0", "pjCCNQC"]}
+    # ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Retc.Supervisor]
+    # # See https://hexdocs.pm/elixir/Supervisor.html
+    # # for other strategies and supported options
+    # opts = [strategy: :one_for_one, name: Retc.Supervisor]
 
-    Supervisor.start_link(children, opts)
+    # Supervisor.start_link(children, opts)
+
+    socket = Retc.connect_socket("wss://host.docker.internal:4000/socket/websocket?vsn=2.0.0")
+    channel = Retc.join_channel(socket, "pjCCNQC")
+    Retc.send_msg(channel, "Hello, World!", 4000)
+
+    {:ok, self()}
   end
 end

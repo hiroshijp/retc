@@ -5,9 +5,9 @@ defmodule Retc.MixProject do
     [
       app: :retc,
       version: "0.1.0",
-      elixir: "~> 1.14",
-      start_permanent: Mix.env() == :prod,
-      deps: deps()
+      elixir: "~> 1.15.8",
+      deps: deps(),
+      escript: [ main_module: Retc ]
     ]
   end
 
@@ -15,7 +15,6 @@ defmodule Retc.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Retc.Application, []}
     ]
   end
 
