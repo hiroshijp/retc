@@ -1,5 +1,10 @@
 defmodule Retc do
 
+  def main([]) do
+    IO.puts 'give socket_url, hub_sid and  msg as strting'
+  end
+
+
   def main([ socket_url, hub_sid, msg ]) do
     socket = connect_socket(socket_url)
     channel = join_channel(socket, hub_sid)

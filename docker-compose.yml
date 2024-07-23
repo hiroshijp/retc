@@ -13,5 +13,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    command: /retc ${SOCKET_URL} ${HUB_SID} ${MESSAGE}
+    command: /app/retc 'wss://host.docker.internal:4000/socket/websocket?vsn=2.0.0' 'xRXBtZf' 'hello'
     

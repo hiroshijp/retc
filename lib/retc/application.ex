@@ -18,11 +18,6 @@ defmodule Retc.Application do
     # opts = [strategy: :one_for_one, name: Retc.Supervisor]
 
     # Supervisor.start_link(children, opts)
-
-    socket = Retc.connect_socket("wss://host.docker.internal:4000/socket/websocket?vsn=2.0.0")
-    channel = Retc.join_channel(socket, "pjCCNQC")
-    Retc.send_msg(channel, "Hello, World!", 4000)
-
     {:ok, self()}
   end
 end

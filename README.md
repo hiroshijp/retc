@@ -4,39 +4,19 @@
 reticulumの負荷テストをするためのWebSocketクライアント
 
 ## how
+
+### dev
 ```
-docker compose up -d
-
-#
-#コンテナへ入る
-#
-
-cd /code/retc
-mix deps.get
-iex -S mix
-
-#
-#iexを起動
-#
-
-socket = Retc.socket()
-channel = Retc.join(socket, hub_sid)
-
-docker compose up --scale app=10
+$ docker compose up dev -d
 ```
 
+### prod
+
+`docker-compose.yaml`のcommandの引数を編集
+```
+& docker compose up prod --scale prod=${ クライアント数 }
+```
 ## todo
-- クライアントプロセスを任意の数起動する
-- メッセージパッシングの間隔を指定できる
-
-## 起動時に渡すパラメーター
-ビルド
-- 接続先ホスト
-
-デプロイ
-- コンテナ数
-- 接続先ホスト
-- hub_sid
-- retc-{ No.X }
-- 送信数
-- 間隔
+- 頻度を与えて無限ループにする
+- メッセージの中身を考える
+- 複数コンテナを起動したときメッセージにどのコンテナから来たものか記述する
