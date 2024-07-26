@@ -27,3 +27,6 @@ retc-*.tar
 
 #
 /.elixir_ls/
+
+# ignore escript cmd
+retc

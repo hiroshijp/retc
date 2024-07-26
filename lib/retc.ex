@@ -1,14 +1,19 @@
 defmodule Retc do
+  @sample_naf_msg ~s/{"dataType":"um","data":{"d":[{"networkId":"xsfmtua","owner":"ae582cfb-0864-4111-8f25-bbce7a4867a7","creator":"ae582cfb-0864-4111-8f25-bbce7a4867a7","lastOwnerTime":1721979564904.7,"template":"#remote-avatar","persistent":false,"parent":null,"components":{"6":{"x":18.000000000000036,"y":76.47495361781063,"z":1.003269929904919e-14}}}]}}"/
 
-  def main([]) do
+  def main() do
     IO.puts 'give socket_url, hub_sid and  msg as strting'
   end
 
 
-  def main([ socket_url, hub_sid, msg ]) do
+  def main([ socket_url, hub_sid, ms]) do
+    # preprocess
+    ms = String.to_integer(ms)
+
+    # run
     socket = connect_socket(socket_url)
     channel = join_channel(socket, hub_sid)
-    send_msg(channel, msg, 400)
+    send_msg(channel, ms)
   end
 
   def connect_socket(url) do
@@ -18,18 +23,18 @@ defmodule Retc do
   end
 
   def join_channel(socket, hub_sid) do
-    case PhoenixClient.Channel.join(socket, "hub:#{hub_sid}", %{"profile" => "hub_logger"})do
+    case PhoenixClient.Channel.join(socket, "hub:#{hub_sid}", %{"profile" => "retc"})do
       {:error, :socket_not_connected} -> join_channel(socket, hub_sid)
       {:ok, _res, channel} -> channel
     end
   end
 
-  @spec send_msg(any(), any(), integer()) :: :ok
-  def send_msg(channel, msg, times, interval_ms \\ 25) do
-    for i <- 1..times do
-      PhoenixClient.Channel.push(channel, "retc", %{helloworld: msg, i: i})
-      :timer.sleep(interval_ms)
-    end
+  def send_msg(channel, ms) do
+    Stream.iterate(0, &(&1 + 1)) |>
+    Enum.map(fn i ->
+      PhoenixClient.Channel.push(channel, "retc_event", %{num: i, retc_msg: @sample_naf_msg})
+      :timer.sleep(ms)
+    end)
     :ok
   end
 end
